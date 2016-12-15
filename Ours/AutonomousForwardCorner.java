@@ -2,6 +2,7 @@ package org.firstinspires.ftc.robotcontroller.Ours;
 
 /**
  * Created by Reagan on 12/9/16.
+ * Effectively depracated
  */
 
 
