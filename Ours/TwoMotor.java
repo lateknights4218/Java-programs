@@ -34,7 +34,7 @@ public class TwoMotor extends OpMode{
 telemetry.addData("INIT","Started!");
             left = hwMap.dcMotor.get("left_drive");
             right = hwMap.dcMotor.get("right_drive");
-//telemetry.addData("TEST","MApped");
+//telemetry.addData("TEST","Mapped");
             left.setDirection(DcMotor.Direction.FORWARD);
             right.setDirection(DcMotor.Direction.REVERSE);
 //telemetry.addData("TEST","Directed");
