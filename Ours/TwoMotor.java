@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 //import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 //import com.qualcomm.robotcore.util.Range;
@@ -58,15 +59,21 @@ telemetry.addData("INIT","Started!");
 
     }
 
-    public void start(){
-        telemetry.addData("TEST","Started");
+    long startTime;
+    public void start() {
+        telemetry.addData("TEST", "Started");
+        startTime = System.currentTimeMillis();
     }
-    double factor=0.7;// Decimal factor for motor power in SloMo for TeleOp
-    int delay=24,count=0;
+
+    double factor=0.4;// Decimal factor for motor power in SloMo for TeleOp
+    int delay=21,count=0, accel=30,tick=1;
+    int sum=0;
+    double avg=0.0;
     public void loop(){
         try {
             joy_left = -gamepad1.left_stick_y;
             joy_right = -gamepad1.right_stick_y;
+            if((joy_left < 0.05 && joy_left > -0.05) && (joy_right < 0.05 && joy_right > -0.05)) tick=1;
 //            telemetry.addData("THING", "got ze numbrs");
 
             if(gamepad1.x && count > delay){ sloMo = !sloMo; count=0; }// Simple on/off switch using 'X' button
@@ -77,9 +84,10 @@ telemetry.addData("INIT","Started!");
                 right.setPower(joy_right * factor);
                 telemetry.addData("SloMo","Active");
             } else if(drive_motors){
-                left.setPower(joy_left);
-                right.setPower(joy_right);
+                left.setPower(joy_left*((double)tick/accel));
+                right.setPower(joy_right*((double)tick/accel));
                 telemetry.addData("SloMo","Disabled");
+                tick++;
             }
         } catch(Exception e){ telemetry.addData("ERROR","Motors powering failed!"); }
 
@@ -92,8 +100,12 @@ telemetry.addData("INIT","Started!");
    //         telemetry.addData("DEBUG","\rLT: %f",gamepad1.left_trigger);
         }
 
+        sum++;
+        avg = sum/((System.currentTimeMillis() - startTime)/1000.0);
         telemetry.addData("Left","\r%.2f",joy_left);
         telemetry.addData("Right","\r%.2f",joy_right);
+//        telemetry.addData("DEBUG","\r%.2f lps",avg);
+//        telemetry.addData("DEGUB","\r%d/%ds",sum,(System.currentTimeMillis() - startTime)/1000);
     }
 
     public void stop(){
