@@ -68,7 +68,7 @@ telemetry.addData("INIT","Started!");
     double factor=0.4;// Decimal factor for motor power in SloMo for TeleOp
     int delay=21,count=0, accel=30,tick=1;
     int sum=0;
-    double avg=0.0;
+    double avg=0.0, pow_left=0.0, pow_right=0.0;
     public void loop(){
         try {
             joy_left = -gamepad1.left_stick_y;
@@ -84,8 +84,13 @@ telemetry.addData("INIT","Started!");
                 right.setPower(joy_right * factor);
                 telemetry.addData("SloMo","Active");
             } else if(drive_motors){
-                left.setPower(joy_left*((double)tick/accel));
-                right.setPower(joy_right*((double)tick/accel));
+                pow_left = joy_left*((double)tick/accel);
+                pow_right = joy_right*((double)tick/accel);
+                //pow_left = Math.pow(joy_left,3);
+                //pow_right = Math.pow(joy_right,3);
+
+                left.setPower(pow_left);
+                right.setPower(pow_right);
                 telemetry.addData("SloMo","Disabled");
                 tick++;
             }
