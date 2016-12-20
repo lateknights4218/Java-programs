@@ -79,16 +79,28 @@ telemetry.addData("INIT","Started!");
             if(gamepad1.x && count > delay){ sloMo = !sloMo; count=0; }// Simple on/off switch using 'X' button
             count++;
 
+            pow_left = joy_left*((double)tick/accel); // Time-based acceleration
+            pow_right = joy_right*((double)tick/accel); // Works-well
+            //pow_left = Math.pow(joy_left,3); // Cubic acceleration curve
+            //pow_right = Math.pow(joy_right,3);// Almost no different from no acceleration
+
+            /*if(joy_left < 0) {
+                pow_left = -Math.log10(9 * -joy_left + 1);// Logarithmic curve
+            } else {
+                pow_left = Math.log10(9 * joy_left + 1);// Doesnt work well either
+            }
+            if(joy_right < 0){
+                pow_right = -Math.log10(9 * -joy_right + 1);// Logarithmic curve
+            } else{
+                pow_right = Math.log10(9 * joy_right + 1);
+            }
+            */
+
             if (drive_motors && sloMo) {
-                left.setPower(joy_left * factor);
-                right.setPower(joy_right * factor);
+                left.setPower(pow_left * factor);
+                right.setPower(pow_right * factor);
                 telemetry.addData("SloMo","Active");
             } else if(drive_motors){
-                pow_left = joy_left*((double)tick/accel);
-                pow_right = joy_right*((double)tick/accel);
-                //pow_left = Math.pow(joy_left,3);
-                //pow_right = Math.pow(joy_right,3);
-
                 left.setPower(pow_left);
                 right.setPower(pow_right);
                 telemetry.addData("SloMo","Disabled");
