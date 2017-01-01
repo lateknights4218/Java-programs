@@ -4,19 +4,12 @@ package org.firstinspires.ftc.robotcontroller.Ours;
  * Created by Reagan on 12/9/16.
  */
 
-
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
-//import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
-import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 
@@ -102,6 +95,8 @@ public class AutonomousRampBlue extends LinearOpMode {
 
         if(flicker_motor) flicker.setPower(0.0);
     }
+
+// MAIN LOOP
     public void runOpMode() {
 
         hwMap = hardwareMap;
