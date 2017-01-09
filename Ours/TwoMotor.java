@@ -63,8 +63,8 @@ telemetry.addData("INIT","Started!");
     }
 
 
-    double factor=0.4;// Decimal factor for motor power in SloMo for TeleOp
-    int delay=21,count=0;// Vars for SloMo
+    double factor=0.46;// Decimal factor for motor power in SloMo for TeleOp
+    boolean held=false,held2=false;// Vars for SloMo
     int accel=30,tick=1;// Vars for acceleration
     int sum=0;// Used for the average
     double avg=0.0, pow_left=0.0, pow_right=0.0;// Avg is only for timing
@@ -73,11 +73,14 @@ telemetry.addData("INIT","Started!");
         try {
             joy_left = -gamepad1.left_stick_y;// Grab joystick values
             joy_right = -gamepad1.right_stick_y;
-// The tick is used for the acceleration bit. Currently given a 5% margin on either end of 0.0
-            if((joy_left < 0.05 && joy_left > -0.05) && (joy_right < 0.05 && joy_right > -0.05)) tick=1;
 
-            if(gamepad1.x && count > delay){ sloMo = !sloMo; count=0; }// Simple on/off switch using 'X' button
-            count++;// Used to delay while button is still being released. Otherwise it flickers
+// The tick is used for the acceleration bit. Currently given a 5% margin on either end of 0.0
+            if((joy_left < 0.05 && joy_left > -0.05) && (joy_right < 0.05 && joy_right > -0.05)) tick=1;// Reset tick
+
+            if(gamepad2.x && !held){ sloMo = !sloMo; held=true; }// Simple on/off switch using 'X' button
+		  else held=false;
+            if(gamepad1.left_stick_button && gamepad1.right_stick_button && !held2){ sloMo = !sloMo; held2=true; }
+		  else held2=false;// This one assures the driver still has full control
 
             pow_left = joy_left*((double)tick/accel); // Time-based acceleration
             pow_right = joy_right*((double)tick/accel); // Works-well
@@ -101,12 +104,14 @@ telemetry.addData("INIT","Started!");
                 left.setPower(pow_left * factor);
                 right.setPower(pow_right * factor);
                 telemetry.addData("SloMo","Active");
-            } else if(drive_motors){
+            } else if(drive_motors) {
                 left.setPower(pow_left);
                 right.setPower(pow_right);
-                telemetry.addData("SloMo","Disabled");
-                tick++;
+                telemetry.addData("SloMo", "Disabled");
             }
+
+            if(tick < 30) tick++;
+
         } catch(Exception e){ telemetry.addData("ERROR","Motors powering failed!"); }
 
         if(flicker_motor) {

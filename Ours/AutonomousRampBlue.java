@@ -117,7 +117,7 @@ public class AutonomousRampBlue extends LinearOpMode {
         } catch (Exception e) {}
         try{
             flicker = hwMap.dcMotor.get("flicker");
-            flicker.setDirection(DcMotorSimple.Direction.REVERSE);
+            flicker.setDirection(DcMotor.Direction.REVERSE);
             flicker_motor = true;
         }catch(Exception e){}
         // Send telemetry message to signify robot waiting;
