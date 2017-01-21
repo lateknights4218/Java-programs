@@ -133,13 +133,13 @@ public class AutonomousRampRed extends LinearOpMode {
 
         moveForward(0.7, 0.5);// Turn time, turn speed
         sleep(500);
-        turnLeft(0.4, 0.8);
+        turnLeft(0.6, 0.55);
         sleep(500);
-        moveForward(0.9, 0.5);
+        moveForward(0.75, 0.5);
         sleep(500);
-        turnLeft(0.8, 0.68);
+        turnLeft(0.45, 0.5);
         sleep(500);
-        moveForward(0.67,1);
+        moveForward(0.5,1);
 
         score(1.5);
     }
