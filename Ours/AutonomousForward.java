@@ -62,7 +62,7 @@ public class AutonomousForward extends LinearOpMode {
         }
 
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 1.65)) {// Runs for X amount of time
+        while (opModeIsActive() && (runtime.seconds() < 1.55)) {// Runs for X amount of time
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }

@@ -20,8 +20,8 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 
-@Autonomous(name="Auton: ForwardCorner", group="Auto")
-public class AutonomousForwardCorner extends LinearOpMode {
+@Autonomous(name="Auton: ForwardDelay25", group="Auto")
+public class AutonomousForwardDelay10 extends LinearOpMode {
 
     DcMotor left = null, right = null, flicker = null;
     DcMotorController cont = null;
@@ -62,13 +62,15 @@ public class AutonomousForwardCorner extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
+        sleep(25000);
+
         if(drive_motors) {
             left.setPower(FORWARD_SPEED);
             right.setPower(FORWARD_SPEED);
         }
 
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 1.9)) {
+        while (opModeIsActive() && (runtime.seconds() < 1.55)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }

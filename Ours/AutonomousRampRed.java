@@ -34,7 +34,7 @@ public class AutonomousRampRed extends LinearOpMode {
 
 
     static final double     FORWARD_SPEED = 1;
-    static final double     TURN_SPEED    = 0.5;
+    static final double     TURN_SPEED    = 1;
 
 
     void moveForward(double moveTime, double motorSpeed){
@@ -131,10 +131,14 @@ public class AutonomousRampRed extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        moveForward(0.7, 0.5);
-        turnLeft(1.0, 0.55);
+        moveForward(0.7, 0.5);// Turn time, turn speed
+        sleep(500);
+        turnLeft(0.6, 0.55);
+        sleep(500);
         moveForward(0.75, 0.5);
-        turnLeft(0.65, 0.5);
+        sleep(500);
+        turnLeft(0.45, 0.5);
+        sleep(500);
         moveForward(0.5,1);
 
         score(1.5);
