@@ -49,7 +49,6 @@ telemetry.addData("INIT","Started!");
             flicker.setPower(0.0);
             flicker_motor=true;// Scoring device mapped successfully
         } catch(Exception e){ telemetry.addData("ERROR","Flicker not detected"); }
-//telemetry.addData("VARS","drive_motors=%b\nflicker=%b",drive_motors,flicker_motor);
         telemetry.addData("INFO","Init done!");
     }
     public void init_loop(){
